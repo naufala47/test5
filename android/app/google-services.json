@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "849855445359",
+    "project_id": "fir-ujian-1736b",
+    "storage_bucket": "fir-ujian-1736b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:849855445359:android:ec8bac50def46a5835109a",
+        "android_client_info": {
+          "package_name": "com.laporansiskamling"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "849855445359-8e1oj8gqjsik5r6meng79rj45kd3u0hp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-ySYbsVP_BqOzFQ9MC2TPciTtSex3ipg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "849855445359-8e1oj8gqjsik5r6meng79rj45kd3u0hp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
