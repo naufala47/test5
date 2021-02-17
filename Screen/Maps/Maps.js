@@ -23,11 +23,19 @@ class Maps extends Component {
                 provider={PROVIDER_GOOGLE}
                 showsUserLocation
                 initialRegion={{
-                    latitude: 37.78825,
-                    longitude: -122.4324,
+                    latitude: -6.248176363307238,
+                    longitude: 106.8181355549056,
                     latitudeDelta: 0.0922,
                     longitudeDelta: 0.0421
-                }} />
+                }} >
+                <MapView.Marker
+                    coordinate={{
+                        latitude: -6.248176363307238,
+                        longitude: 106.8181355549056,
+                    }}
+                    title="Lokasi"
+                    description="Hello" />
+            </MapView>
 
         );
     }

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import {
     StyleSheet,
@@ -16,8 +16,30 @@ import {
 } from 'react-native';
 import styles from './style';
 import database from '@react-native-firebase/database';
+import firestore from '@react-native-firebase/firestore';
+
 
 class History extends Component {
+
+    historyLaporan = () => {
+
+        firestore()
+            .collection('laporan')
+            .get()
+            .then(querySnapshot => {
+                console.log('Total users: ', querySnapshot.size);
+
+                querySnapshot.forEach(documentSnapshot => {
+                    console.log('User ID: ', documentSnapshot.id, documentSnapshot.data());
+
+                });
+            });
+
+    }
+
+    componentDidMount() {
+        this.historyLaporan();
+    }
 
     render() {
         return (
@@ -25,8 +47,8 @@ class History extends Component {
                 <KeyboardAwareScrollView
                     style={{ flex: 1, width: '100%' }}
                     keyboardShouldPersistTaps="always">
-                    <View style={styles.footerView}>
-                        <Text style={styles.footerText}>History</Text>
+                    <View >
+                        <Text>History</Text>
                     </View>
                 </KeyboardAwareScrollView>
             </View>

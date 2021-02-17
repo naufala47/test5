@@ -17,6 +17,7 @@ import {
 import styles from './style';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
+import DropDownPicker from 'react-native-dropdown-picker';
 
 class Laporan extends Component {
     constructor(props) {
@@ -24,7 +25,7 @@ class Laporan extends Component {
 
         this.state = {
             name: "",
-            kejadian: "",
+            kejadian: 'perampokan',
             alamat: "",
             keterangan: ""
         }
@@ -32,29 +33,22 @@ class Laporan extends Component {
 
     registerLaporan = () => {
         console.log('test laporan')
-        auth()
-            .createUserWithEmailAndPassword(this.state.email, this.state.kejadian)
-            .then((response) => {
-                console.log('laporan created');
-                console.log("Response" + response)
 
-
-                firestore()
-                    .collection('users')
-                    .doc(this.state.kejadian)
-                    .set({
-                        name: this.state.name,
-                        kejadian: this.state.kejadian,
-                        alamat: this.state.alamat
-                    })
-                    .then(() => {
-                        this.props.navigation.navigate("Dashboard")
-                        console.log('laporan added!');
-                    }).catch((error) => {
-                        Alert.alert("gagal nyimpen", JSON.stringify(error))
-                    });
-
+        firestore()
+            .collection('laporan')
+            .doc(this.state.kejadian + this.state.name + this.state.alamat + this.state.keterangan)
+            .set({
+                name: this.state.name,
+                kejadian: this.state.kejadian,
+                alamat: this.state.alamat,
+                keterangan: this.state.keterangan
             })
+            .then(() => {
+                this.props.navigation.navigate("Dashboard")
+                console.log('laporan added!');
+            }).catch((error) => {
+                Alert.alert("gagal nyimpen", JSON.stringify(error))
+            });
 
     }
 
@@ -76,23 +70,22 @@ class Laporan extends Component {
                         underlineColorAndroid="transparent"
                         autoCapitalize="none"
                     />
-                    <TextInput
-                        style={styles.input}
-                        placeholder='email'
-                        placeholderTextColor="#aaaaaa"
-                        onChangeText={(email) => this.setState({ email: email })}
-
-                        underlineColorAndroid="transparent"
-                        autoCapitalize="none"
-                    />
-                    <TextInput
-                        style={styles.input}
-                        placeholderTextColor="#aaaaaa"
-                        placeholder='Kejadian'
-                        onChangeText={(kejadian) => this.setState({ kejadian: kejadian })}
-
-                        underlineColorAndroid="transparent"
-                        autoCapitalize="none"
+                    <DropDownPicker
+                        items={[
+                            { label: 'Perampokan', value: 'perampokan' },
+                            { label: 'Bencana', value: 'bencana' },
+                            { label: 'Pembunuhan', value: 'pembunuhan' },
+                        ]}
+                        defaultValue={this.state.kejadian}
+                        containerStyle={{ height: 40 }}
+                        style={{ backgroundColor: '#fafafa' }}
+                        itemStyle={{
+                            justifyContent: 'flex-start'
+                        }}
+                        dropDownStyle={{ backgroundColor: '#fafafa' }}
+                        onChangeItem={item => this.setState({
+                            kejadian: item.value
+                        })}
                     />
                     <TextInput
                         style={styles.input}
@@ -103,9 +96,6 @@ class Laporan extends Component {
                         underlineColorAndroid="transparent"
                         autoCapitalize="none"
                     />
-                    <View style={styles.footerView}>
-                        <Text style={styles.footerText}>Keterangan</Text>
-                    </View>
                     <TextInput
                         style={styles.input}
                         placeholderTextColor="#aaaaaa"
